@@ -1,0 +1,15 @@
+# unikube switch configuration file
+apps:
+  projects:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    deployment: {{ cookiecutter.project_name }}
+    # specify the command to start the container with
+    command: python manage.py serve --port {port} --autoreload
+    # specify to be mounted volumes for code hot-reloading
+    volumes:
+      - ./src:/app
+    env:
+      - DJANGO_DEBUG: "True"
