@@ -9,7 +9,7 @@ from split_settings.tools import include
 
 _base_settings = (
     "components/apps.py",
-    "components/common.py",
+    "components/commons.py",
     "components/middlewares.py",
     "components/logging.py",
     "components/csp.py",

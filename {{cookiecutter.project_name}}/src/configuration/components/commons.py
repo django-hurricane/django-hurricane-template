@@ -5,7 +5,6 @@ For the full list of settings and their config, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-from typing import Tuple
 from django.utils.translation import ugettext_lazy as _
 
 from decouple import config
