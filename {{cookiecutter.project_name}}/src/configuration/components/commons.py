@@ -5,7 +5,7 @@ For the full list of settings and their config, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
-from typing import Tuple, List
+from typing import Tuple
 from django.utils.translation import ugettext_lazy as _
 
 from decouple import config
@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Security
 SECRET_KEY = config("DJANGO_SECRET_KEY")
-ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=List, default=["*"])
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", cast=list, default=["*"])
 SESSION_COOKIE_HTTPONLY = config("DJANGO_SESSION_COOKIE_HTTPONLY", cast=bool, default=True)
 CSRF_COOKIE_HTTPONLY = config("DJANGO_CSRF_COOKIE_HTTPONLY", cast=bool, default=True)
 SECURE_CONTENT_TYPE_NOSNIFF = config("DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", cast=bool, default=True)
