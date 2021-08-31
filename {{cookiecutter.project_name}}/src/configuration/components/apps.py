@@ -13,7 +13,7 @@ INSTALLED_APPS: Tuple[str, ...] = (
     "django.contrib.admin",
     "django.contrib.admindocs",
     # Hurricane for Kubernetes integration:
-    "hurricane"
+    "hurricane",
     # Extensions and 3rd Party Apps:
     "django_extensions",
     # Your Apps:
