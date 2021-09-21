@@ -1,0 +1,41 @@
+name: Test and build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip poetry
+          poetry install --no-interaction --no-ansi
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          poetry run flake8 . --count --exit-zero --max-complexity=18 --max-line-length=120 --statistics --ignore=E203,E266,E501,W503,F403,F401,E402 --select=B,C,E,F,W,T4,B9
+      - name: Lint with brunette
+        run: |
+          poetry run brunette --config=setup.cfg --check src/
+      - name: Test with pytest and coverage
+        run: |
+          poetry run coverage run -m pytest src/
+        env:
+          DATABASE_ENGINE: django.db.backends.sqlite3
+          DATABASE_NAME: "db"
+          DATABASE_USER: ""
+          DATABASE_PASSWORD: ""
+          DATABASE_HOST: ""
+      - name: Coverage report
+        run: |
+          poetry run coverage report -m
