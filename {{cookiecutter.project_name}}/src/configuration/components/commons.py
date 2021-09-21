@@ -20,22 +20,37 @@ ROOT_URLCONF = "configuration.urls"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("DATABASE_NAME"),
-        "USER": config("DATABASE_USER"),
-        "PASSWORD": config("DATABASE_PASSWORD"),
-        "HOST": config("DATABASE_HOST"),
-        "PORT": config("DATABASE_PORT", cast=int, default=5432),
-        "CONN_MAX_AGE": config("CONN_MAX_AGE", cast=int, default=60),
-        "ATOMIC_REQUESTS": config("DJANGO_ATOMIC_REQUESTS", cast=bool, default=True),
-        "OPTIONS": {
-            "connect_timeout": 10,
-        },
-    },
-}
+engine = config("DATABASE_ENGINE", default="django.db.backends.postgresql")
 
+# postgresql
+if engine == "django.db.backends.postgresql":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DATABASE_NAME"),
+            "USER": config("DATABASE_USER"),
+            "PASSWORD": config("DATABASE_PASSWORD"),
+            "HOST": config("DATABASE_HOST"),
+            "PORT": config("DATABASE_PORT", cast=int, default=5432),
+            "CONN_MAX_AGE": config("CONN_MAX_AGE", cast=int, default=60),
+            "ATOMIC_REQUESTS": config("DJANGO_ATOMIC_REQUESTS", cast=bool, default=True),
+            "OPTIONS": {
+                "connect_timeout": 10,
+            },
+        },
+    }
+
+# sqlite3 (e.g. for testing)
+elif engine == "django.db.backends.sqlite3":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": config("DATABASE_NAME"),
+        },
+    }
+
+else:
+    raise Exception("DATABASES is invalid or not set.")
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
