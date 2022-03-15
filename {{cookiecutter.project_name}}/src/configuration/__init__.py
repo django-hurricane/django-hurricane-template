@@ -2,8 +2,6 @@
 This is a django-split-settings main file.
 """
 
-from os import environ
-
 from split_settings.tools import include
 
 

@@ -10,7 +10,7 @@ readme = "README.md"
 authors = ["{{ cookiecutter.project_domain }}"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.8"
 
 django = "^3.2"
 django-hurricane = "^0.8.8"
