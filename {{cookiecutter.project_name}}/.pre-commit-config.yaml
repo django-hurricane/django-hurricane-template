@@ -1,9 +1,9 @@
 repos:
-  # dropin replacement for black with configuration in setup.py
-  - repo: https://github.com/odwyersoftware/brunette
-    rev: b8fc75f460885f986a01842664e0571769b2cc12
+  # black - the uncompromising Python code formatter
+  - repo: https://github.com/psf/black
+    rev: 22.1.0
     hooks:
-      - id: brunette
+      - id: black
         language_version: python3.8
 
   # flake8 - style guide enforcement
