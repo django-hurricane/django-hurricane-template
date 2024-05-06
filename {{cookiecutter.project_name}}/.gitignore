@@ -326,3 +326,5 @@ tags
 .local-dev/
 
 .docker/data/
+
+*.db

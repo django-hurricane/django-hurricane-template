@@ -19,11 +19,11 @@ ENV BUILD_ONLY_PACKAGES='wget' \
   # tini:
   TINI_VERSION=v0.19.0 \
   # poetry:
-  POETRY_VERSION=1.1.5 \
+  POETRY_VERSION=1.8.2 \
   POETRY_NO_INTERACTION=1 \
   POETRY_VIRTUALENVS_CREATE=false \
   POETRY_CACHE_DIR='/var/cache/pypoetry' \
-  PATH="$PATH:/root/.poetry/bin"
+  PATH="$PATH:/root/.local/bin"
 
 RUN apt-get update && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
@@ -31,6 +31,7 @@ RUN apt-get update && apt-get upgrade -y \
     build-essential \
     curl \
     gettext \
+    unzip \
     git \
     libpq-dev \
     # Defining build-time-only dependencies:
@@ -46,7 +47,7 @@ RUN apt-get update && apt-get upgrade -y \
   && chmod +x /usr/local/bin/tini && tini --version \
   # Installing `poetry` package manager:
   # https://github.com/python-poetry/poetry
-  && curl -sSL 'https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py' | python \
+  && curl -sSL https://install.python-poetry.org | python - \
   && poetry --version \
   # Removing build-time-only dependencies:
   && apt-get remove -y $BUILD_ONLY_PACKAGES \
